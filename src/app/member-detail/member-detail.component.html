@@ -1,0 +1,50 @@
+<div class="container">
+  <form [formGroup]="frmMember" autocomplete="off" novalidate>
+
+    <h3 class="text-center">Member Task Detail</h3>  
+    <p></p>  
+
+    <div class="row">
+        <div class="col-sm-1"><label>Member Id:</label></div>
+        <div class="col-sm-3"><input type="textbox" formControlName="memberId" class="form-control" placeholder="Enter member Id" /></div>        
+        <div class="col-sm-3"><input type="button" class="btn btn-success" value="Search" (click)="getMemberDetail()"></div>       
+    </div>
+
+    <div class="row">
+      <div class="col-sm-1"></div>
+        <div *ngIf="f['memberId'].touched && f['memberId'].invalid" class="col-sm-3">
+          <div *ngIf="f['memberId'].errors && f['memberId'].errors['required']">MemberId is required.</div>
+          <div *ngIf="f['memberId'].errors && f['memberId'].errors['minlength']">MemberId should be minimum 3 characters.</div>
+       </div>
+     </div>
+     <p></p>           
+    <table class="table table-bordered">
+      <thead>
+        <tr class="table-primary">
+            <th>Member Name</th>
+            
+            <th>Task</th>
+            <th>Deliverables</th>
+            <th>Task Start Date</th>
+            <th>Task End Date</th>
+
+        </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let item of taskDetail">         
+          <td>{{item.MemberName}}</td>
+           <td>{{item.TaskName}}</td>
+          <td>{{item.Deliverables}}</td>
+          <td>{{item.TaskStartDate | date: 'dd-MMM-yyyy'}}</td>
+          <td>{{item.TaskEndDate | date: 'dd-MMM-yyyy'}}</td>
+
+      </tr>
+      <tr *ngIf="taskDetail?.length == 0">
+        <td colspan="9" class="text-center">No record available</td>
+      </tr>
+      <tbody>     
+    </table>
+    </form>
+
+ </div>
+
